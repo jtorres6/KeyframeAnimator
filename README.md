@@ -5,4 +5,4 @@ Web application that allows you to make animations by interpolating the informat
 
 ## Process
 
-1. [Week 5: interface design](./Practicas/Practica1)
+1. [Week 5: interface design](./documentation/week5/project_info.html)
