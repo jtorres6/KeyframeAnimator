@@ -15,10 +15,12 @@ function setSquare(){
 
 function play(){
   if(!playing){
+    document.getElementById("button_timeline").innerHTML = "❚❚";
     interval = setInterval(loop, animVelocity);
     playing = true;
   }
   else{
+    document.getElementById("button_timeline").innerHTML = "►"
     clearInterval(interval);
     playing = false;
   }
@@ -31,6 +33,5 @@ function loop() {
       output.innerHTML = slider.value;
       if(slider.value == "100"){
         clearInterval(interval)
-
       }
 }

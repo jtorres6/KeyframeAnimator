@@ -4,6 +4,7 @@
   <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
 	<title>Keyframe animator</title>
 	<link rel="stylesheet" href="./index.css">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
   <script src="./script.js"></script>
 </head>
 <body>
@@ -14,7 +15,7 @@
           <img id=imgtr src="../img/triangle.jpg" alt="I_really_really_really_like_this_image" style="display:block; vertical-align:middle; text-align:center">
       </div>
       <div id="timeline">
-        <button id="button_timeline" onclick="play()"> start/stop</button>
+        <button id="button_timeline" onclick="play()"> ►</button>
         <div class="slidecontainer">
           <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
         </div>
@@ -24,7 +25,7 @@
     <div id="right">
       <div id="up">
         <div id="list_of_keyframes">
-          <select id=keyframes>
+          <select id=keyframes, size="10">
             <option>start</option>
             <option>middle1</option>
             <option>middle2</option>

@@ -7,7 +7,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 body {
-  background-color: darkgrey;
+  background-color: #3F3F3F;
+  font-family: "Fira Sans", sans-serif;
 
 }
 
@@ -17,7 +18,7 @@ height:100%;
 }
 
 #main_space {
-  background-color: lightyellow;
+  background-color: #181818;
   display: flex;
   padding-top: 1%;
   padding-bottom: 1%;
@@ -41,7 +42,7 @@ height:100%;
   padding-right: 1%;
     width: 90%;
     height: 78%;
-  background-color: red;
+  background-color: #3F3F3F;
 }
 
 #timeline{
@@ -96,9 +97,19 @@ height:100%;
 }
 
 #timeline button{
-  width: 10%;
-  height: 45%;
+  font-family: "Fira Sans", sans-serif;
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
   text-align: center;
+  background-color: #333; /* Green */
+  color: black;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 50%;
 }
 #value{
 
