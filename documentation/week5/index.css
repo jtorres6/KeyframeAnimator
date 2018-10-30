@@ -7,17 +7,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 body {
-  background-color: #3F3F3F;
+  background-color: #181818;
   font-family: "Fira Sans", sans-serif;
 
 }
 
-img{
-width:100%;
-height:100%;
+#imgtr, #imgsq{
+  width:100%;
+  height:100%;
 }
 
-#main_space {
+#container {
+  align-items: stretch;
   background-color: #181818;
   display: flex;
   padding-top: 1%;
@@ -27,22 +28,32 @@ height:100%;
 }
 
 #left{
+  align-items: stretch;
   width: 58%;
+
 }
 
 #right{
   width: 38%;
+
 }
 
 #keyframe_space{
+  position: relative;
   margin: 4px;
   padding-top: 1%;
   padding-bottom: 1%;
   padding-left: 1%;
   padding-right: 1%;
-    width: 90%;
-    height: 78%;
+  width: 90%;
+  height: 78%;
   background-color: #3F3F3F;
+}
+
+#keyframe_space_image{
+  position:absolute;
+  width:30%;
+  height:30%;
 }
 
 #timeline{
@@ -58,7 +69,7 @@ height:100%;
 #up{
   margin: 4px;
   display: flex;
-  height: 18%;
+  height: 60%;
 }
 
 #list_of_keyframes{
@@ -88,8 +99,9 @@ height:100%;
   padding-left: 1%;
   padding-right: 1%;
   width: 90%;
-  height: 78%;
+  height: 38%;
 }
+
 
 #keyframe_space img{
   width: auto;
@@ -111,13 +123,16 @@ height:100%;
   display: inline-block;
   border-radius: 50%;
 }
-#value{
-
-}
 
 #timeline img{
 width: 100%;
 height: 100%;
+}
+
+#copyright{
+  position:absolute;
+    width:100%;
+    bottom:0px;
 }
 
 .slidecontainer {
@@ -130,9 +145,10 @@ height: 100%;
   margin-top: 13px;
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
+    height: 5px;
+    border-radius: 5px;
     width: 100%; /* Full-width */
-    height: 5px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
+    background: #3F3F3F; /* Grey background */
     outline: none; /* Remove outline */
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
@@ -148,15 +164,17 @@ height: 100%;
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    height: 15px;
+    border-radius: 50%;
+    width: 15px; /* Set a specific slider handle width */
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
 
 .slider::-moz-range-thumb {
+    height: 25px;
+    border-radius: 50%;
     width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }

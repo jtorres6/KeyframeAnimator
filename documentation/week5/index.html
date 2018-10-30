@@ -8,14 +8,16 @@
   <script src="./script.js"></script>
 </head>
 <body>
-  <div id="main_space">
+  <div id="container">
     <div id="left">
       <div id="keyframe_space" >
+        <div id="keyframe_space_image">
           <img id=imgsq src="../img/square.jpg" alt="I_really_really_really_like_this_image" style="display:none; vertical-align:middle; text-align:center">
           <img id=imgtr src="../img/triangle.jpg" alt="I_really_really_really_like_this_image" style="display:block; vertical-align:middle; text-align:center">
+        </div>
       </div>
       <div id="timeline">
-        <button id="button_timeline" onclick="play()"> ►</button>
+        <button id="button_timeline" onclick="play()">►</button>
         <div class="slidecontainer">
           <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
         </div>
