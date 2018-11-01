@@ -6,7 +6,12 @@
 	<link rel="stylesheet" href="./indexs.css">
 </head>
 <body>
-  <p><h1>Week 5 progress update</h1>
+    <div id="title">
+  <h1>Week 5 progress update</h1>
+  </div>
+  <div id="body">
+    <div id="intro">
+    <p>
     The common method in the beginning of the development of this type of web elements is, first, to make sketches about the interface
     that we are going to show and a prototype where the functionality of this is shown.
     To create the first approach to the interface we decided to list what elements we believe necessary, we obtained the following:
@@ -22,15 +27,75 @@
     </p>
 
     <p>
-    With these elements we can start to create the basic outline of the web page. For this, we use draw.io
+    With these elements we can start to create the basic outline of the web page. For this, we have used <a href="draw.io">draw.io</a>
     </p>
+    </div>
+    <div class="imgdiv">
     <p>
-      <img src="../img/KeyframeAnimator.jpg" alt="diagram">
+      <img src="https://i.imgur.com/IAPFvLK.jpg" alt="diagram">
   </p>
+</div>
+
+<div id="finalwork">
+
   <p>
-Once we have made the first scheme, we place placeholders (non-interactive images) to obtain a first image of the design and its elements.
+    Once we have made the first scheme, we place placeholders (non-interactive images) to obtain a first image of the design and its elements.
+    Starting from that first image, we can build the base of the interactive interface. In this case, we start with the preview zone, which occupies most of the page and where the animations are transformed. For this we create a special zone that delimits the movement of the objects of the scene although, in the first prototype, they can not be moved. To this we will add an object selector for the scene, if you click on one of the objects in the preview, for the prototype we have added two objects. One of the most important parts is the timeline, we have built in the preview space and it works as a player (play / pause) in which you can move the time in which you are. Along with the timeline we have implemented the list of keyframes, since they will work together, we have added 4 frames as an example and, in a more developed stage, to select and edit the keyframes placed on the timeline and the transformations of the objects at that moment.
+    Finally, we add the code sample where the code that builds the animation is displayed to be able to export outside the animator.
+    With all this we have created the first interface prototype:
   </p>
+</div>
+        <div class="imgdiv">
   <p>
-    <a href="./index.html">State of the webpage</a>
+    <img src="https://i.imgur.com/qq0iT3M.png" alt="preview">
+  </p>
+    </div>
+  <div id="linkbottom">
+  <p><h2><a href="https://keyframeanimator.tumblr.com"> LINK TO THE CURRENT WEBPAGE </a><h2></p>
+  </div>
+  </div>
+<style>
+/* CSS reset */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+body {
+  background-color: #161616;
+  font-family: "Fira Sans", sans-serif;
+  color: white;
+
+}
+
+img{
+
+    height: 400px;
+  }
+.imgdiv{
+  text-align: center;
+  margin: 20px;
+}
+
+a:hover {
+      background-color: blue;
+}
+a:visited {
+      background-color: white;
+}
+
+#body{
+  margin: 20px;
+}
+
+#intro ul, li {
+  margin: 20px;
+}
+
+
+</style>
+
 </body>
 </html>
