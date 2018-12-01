@@ -5,6 +5,8 @@ var positionX = 0;
 var ListOfKeyframes = []
 var index = 0;
 
+
+
 function setTriangle(){
     document.getElementById("imgtr").style.display = 'block';
     document.getElementById("imgsq").style.display = 'none';
@@ -48,49 +50,6 @@ function loop() {
         clearInterval(interval)
       }
 }
-// Make the DIV element draggable:
-dragElement(document.getElementById("mydiv"));
-
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
-}
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
 
   function KeyFrame(time, name, position, scale, rotation){
     this.time = time;
@@ -120,7 +79,7 @@ function dragElement(elmnt) {
 
   function setName(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){ 
+    if(x.selectedIndex > -1){
       x.options[x.selectedIndex].innerHTML= document.getElementById("kfName").value;
       ListOfKeyframes[x.selectedIndex].name = document.getElementById("kfName").value;
     }
@@ -128,7 +87,7 @@ function dragElement(elmnt) {
 
   function setPosition(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){ 
+    if(x.selectedIndex > -1){
       ListOfKeyframes[x.selectedIndex].position[0] = document.getElementById("positionX").value;
       ListOfKeyframes[x.selectedIndex].position[1] = document.getElementById("positionY").value;
     }
@@ -136,7 +95,7 @@ function dragElement(elmnt) {
 
   function setScale(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){ 
+    if(x.selectedIndex > -1){
       ListOfKeyframes[x.selectedIndex].scale[0] = document.getElementById("scaleX").value;
       ListOfKeyframes[x.selectedIndex].scale[1] = document.getElementById("scaleY").value;
     }
@@ -144,7 +103,7 @@ function dragElement(elmnt) {
 
   function setRotation(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){ 
+    if(x.selectedIndex > -1){
       ListOfKeyframes[x.selectedIndex].rotation[0] = document.getElementById("rotationX").value;
       ListOfKeyframes[x.selectedIndex].rotation[1] = document.getElementById("rotationY").value;
     }
@@ -170,4 +129,67 @@ function dragElement(elmnt) {
       ListOfKeyframes[i].name = ListOfKeyframes[i+1].name;
     }
     ListOfKeyframes.pop(n);
+}
+var dragItem = document.querySelector("#item");
+var container = document.querySelector("#container");
+
+var active = false;
+var currentX;
+var currentY;
+var initialX;
+var initialY;
+var xOffset = 0;
+var yOffset = 0;
+
+container.addEventListener("touchstart", dragStart, false);
+container.addEventListener("touchend", dragEnd, false);
+container.addEventListener("touchmove", drag, false);
+
+container.addEventListener("mousedown", dragStart, false);
+container.addEventListener("mouseup", dragEnd, false);
+container.addEventListener("mousemove", drag, false);
+
+function dragStart(e) {
+  if (e.type === "touchstart") {
+    initialX = e.touches[0].clientX - xOffset;
+    initialY = e.touches[0].clientY - yOffset;
+  } else {
+    initialX = e.clientX - xOffset;
+    initialY = e.clientY - yOffset;
   }
+
+  if (e.target === dragItem) {
+    active = true;
+  }
+}
+
+function dragEnd(e) {
+  initialX = currentX;
+  initialY = currentY;
+
+  active = false;
+}
+
+function drag(e) {
+  if (active) {
+
+    e.preventDefault();
+
+    if (e.type === "touchmove") {
+      currentX = e.touches[0].clientX - initialX;
+      currentY = e.touches[0].clientY - initialY;
+    } else {
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+    }
+
+    xOffset = currentX;
+    yOffset = currentY;
+
+    setTranslate(currentX, currentY, dragItem);
+  }
+}
+
+function setTranslate(xPos, yPos, el) {
+  el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}
