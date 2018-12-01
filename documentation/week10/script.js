@@ -29,12 +29,12 @@ function play(){
 }
 
 function stop(){
-  clearInterval(interval);
   playing = false;
+  clearInterval(interval);
   document.getElementById("button_timeline").innerHTML ="►";
   var slider  = document.getElementById("myRange");
   var output = document.getElementById("demo");
-  slider.value = parseInt(slider.value) + 1;
+  slider.value = parseInt(slider.value);
   output.innerHTML = slider.value;
 
 }
