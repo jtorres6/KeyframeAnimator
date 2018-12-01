@@ -38,6 +38,8 @@ function stop(){
   var output = document.getElementById("demo");
   slider.value = parseInt(slider.value);
   output.innerHTML = slider.value;
+  var x = document.getElementById("keyframes");
+  ListOfKeyframes[x.selectedIndex].time = slider.value;
 
 }
 
@@ -45,7 +47,19 @@ function loop() {
       var slider  = document.getElementById("myRange");
       var output = document.getElementById("demo");
       slider.value = parseInt(slider.value) + 1;
-      output.innerHTML = slider.value;
+      var found = false;
+      for(i = 0; i<ListOfKeyframes.length && !found; i++){
+        
+        if(slider.value == ListOfKeyframes[i].time){
+          showKeyframe(i);
+          found = true;
+          output.innerHTML = "AAAAAAA";
+          break;
+
+        }
+
+      }
+      //output.innerHTML = slider.value;
       if(slider.value == "100"){
         clearInterval(interval)
       }
@@ -66,15 +80,40 @@ function loop() {
 
   function selectKeyframe(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){
-      document.getElementById("kfName").value = ListOfKeyframes[x.selectedIndex].name;
-      var pos = document.getElementById("positionX").value = ListOfKeyframes[x.selectedIndex].position[0];
-      pos = document.getElementById("positionY").value = ListOfKeyframes[x.selectedIndex].position[1];
-      document.getElementById("scaleX").value = ListOfKeyframes[x.selectedIndex].scale[0];
-      document.getElementById("scaleY").value = ListOfKeyframes[x.selectedIndex].scale[1];
-      document.getElementById("rotationX").value = ListOfKeyframes[x.selectedIndex].rotation[0];
-      document.getElementById("rotationY").value = ListOfKeyframes[x.selectedIndex].rotation[1];
-    }
+    if(x.selectedIndex > -1){ 
+      updateKeyframe(x.selectedIndex);
+      setTranslate(ListOfKeyframes[x.selectedIndex].position[0], ListOfKeyframes[x.selectedIndex].position[0], dragItem);
+      
+      }
+  }
+
+  function updateKeyframe(x){
+    document.getElementById("kfName").value = ListOfKeyframes[x].name;
+    document.getElementById("positionX").value = ListOfKeyframes[x].position[0];
+    document.getElementById("positionY").value = ListOfKeyframes[x].position[1];
+    document.getElementById("scaleX").value = ListOfKeyframes[x].scale[0];
+    document.getElementById("scaleY").value = ListOfKeyframes[x].scale[1];
+    document.getElementById("rotationX").value = ListOfKeyframes[x].rotation[0];
+    document.getElementById("rotationY").value = ListOfKeyframes[x].rotation[1];
+    
+    document.getElementById("myRange").value = ListOfKeyframes[x].time;
+    document.getElementById("demo").innerHTML = ListOfKeyframes[x].time;
+  }
+
+  
+  function showKeyframe(x){
+    document.getElementById("kfName").value = ListOfKeyframes[x].name;
+    document.getElementById("positionX").value = ListOfKeyframes[x].position[0];
+    document.getElementById("positionY").value = ListOfKeyframes[x].position[1];
+    document.getElementById("scaleX").value = ListOfKeyframes[x].scale[0];
+    document.getElementById("scaleY").value = ListOfKeyframes[x].scale[1];
+    document.getElementById("rotationX").value = ListOfKeyframes[x].rotation[0];
+    document.getElementById("rotationY").value = ListOfKeyframes[x].rotation[1];
+    
+    document.getElementById("myRange").value = ListOfKeyframes[x].time;
+    document.getElementById("demo").innerHTML = ListOfKeyframes[x].time;
+    setTranslate(ListOfKeyframes[x].position[0], ListOfKeyframes[x].position[0], dragItem);
+      
   }
 
   function setName(){
@@ -110,9 +149,18 @@ function loop() {
   }
 
   function addKeyframe(){
-    ListOfKeyframes.push(new KeyFrame(0,"kframe"+index,[0,0],[0,0],[0,0]))
+    var slider  = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    slider.value = parseInt(slider.value);
+    output.innerHTML = slider.value;
+    ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0]))
     index+=1;
 
+  }
+
+  function createKeyframe( time, pos, scale, rotation){
+    ListOfKeyframes.push(new KeyFrame(time,"kframe"+index, pos, scale, rotation))
+    index+=1;
   }
 
   function removeKeyframe(){
