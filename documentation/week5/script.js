@@ -1,4 +1,3 @@
-
 var playing = false;
 var interval;
 var animVelocity = 4000/100;
