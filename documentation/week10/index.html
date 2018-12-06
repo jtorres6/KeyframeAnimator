@@ -62,7 +62,13 @@
       function dragEnd(e) {
         initialX = currentX;
         initialY = currentY;
-
+        
+        var x = document.getElementById("keyframes");
+        if(x.selectedIndex > -1){
+          ListOfKeyframes[x.selectedIndex].position[0] = currentX;
+          ListOfKeyframes[x.selectedIndex].position[1] = currentY;
+          updateKeyframe(x.selectedIndex);
+        }
         active = false;
       }
 
