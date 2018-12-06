@@ -6,31 +6,112 @@
 	<link rel="stylesheet" href="./indexs.css">
 </head>
 <body>
-  <p><h1>Week 5 progress update</h1>
-    The common method in the beginning of the development of this type of web elements is, first, to make sketches about the interface
-    that we are going to show and a prototype where the functionality of this is shown.
-    To create the first approach to the interface we decided to list what elements we believe necessary, we obtained the following:
-    </p>
-    <p>
-    <ul>
-      <li> Preview space: area where we can see graphically the situation and the final result of the animation.</li>
-      <li> Timeline: here we show where the keyframes we have created are located, with respect to time.</li>
-      <li> Keyframe list: list with the positions, rotation, scale that we want to interpolate in each keyframe.</li>
-      <li> Selector: list with each object of the scene.</li>
-      <li> Code display: shows the code of the animation made.</li>
-    </ul>
-    </p>
+  <h1>Keyframe Animator: Week 10 progress update</h1>
+  <div id="contentinfo">
+    <section typeof="sa:AuthorsList">
+      <h2>Authors</h2>
+        <ul>
+          <li typeof="sa:ContributorRole" property="schema:author">
+            <span typeof="schema:Person" resource="https://github.com/jtorres6">
+              <meta property="schema:givenName" content="Jose">
+              <meta property="schema:additionalName" content="Manuel">
+              <meta property="schema:familyName" content="Torres Morales">
+              <span property="schema:name"><a href="https://github.com/jtorres6">Josñe M. Torres Morales</a></span>
+            </span>
+          </li>
+          <li typeof="sa:ContributorRole" property="schema:author">
+            <span typeof="schema:Person" resource="https://github.com/LeandroVP">
+              <meta property="schema:givenName" content="Leandro">
+              <meta property="schema:familyName" content="Vega Palma">
+              <span property="schema:name"> <a href="https://github.com/LeandroVP">Leandro Vega Palma</a></span>
+            </span>
+          </li>
+        </ul>
+      </section>
+      <section id="description">
+        <h2>Class diagram</h2>
+          <figure class="figimg" typeof="sa:image">
+            <img id="diagrama" src="http://oi67.tinypic.com/2r2n1ia.jpg" alt="Class diagram">
+          </figure>
+          <div id="desc_content">
+          <p>
+            The class Animation has two fields for storing the list of original
+            keyframes and the interpolated keyframes.
 
-    <p>
-    With these elements we can start to create the basic outline of the web page. For this, we use draw.io
-    </p>
-    <p>
-      <img src="../img/KeyframeAnimator.jpg" alt="diagram">
-  </p>
-  <p>
-Once we have made the first scheme, we place placeholders (non-interactive images) to obtain a first image of the design and its elements.
-  </p>
-  <p>
-    <a href="./index.html">State of the webpage</a>
+            The functions implemented are used for adding new keyframes,
+            select one keyframe from the list, remove the selected keyframe and
+            reproduce the animation.
+          </p>
+          <p>
+            The class Keyframe has five fields implemented where the name, time,
+            position, rotation and scale are stored.
+            The functions implemented in this class are the constructor,
+            a displayer and an editor.
+          </p>
+        </div>
+      </section>
+        <div id="linkbottom">
+        <p><h2><a href="https://keyframeanimator.tumblr.com"> LINK TO THE CURRENT WEBPAGE </a><h2></p>
+        </div>
+
+        <style>
+        /* CSS reset */
+
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, footer {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          vertical-align: baseline;
+        }
+        body {
+          background-color: #161616;
+          font-family: "Fira Sans", sans-serif;
+          color: white;
+
+        }
+
+        img{
+            width: 50%;
+          }
+
+        .figimg{
+          text-align: center;
+          margin: 20px;
+        }
+
+        a:hover {
+              background-color: blue;
+        }
+        a:visited {
+              background-color: white;
+        }
+
+        #contentinfo{
+          text-align: center;
+          margin: 10px;
+        }
+
+        #desc_content{
+          display: flex;
+        }
+        #desc_content p{
+          margin-left: 55px;
+          margin-right: 55px;
+          margin-bottom: 20px;
+          margin-top: 20px;
+          width: 40%;
+        }
+        #linkbottom{
+          margin: 20px;
+        }
+
+        h1{
+          text-align: center;
+        }
+
+        li{
+          margin: 10px;
+        }
+        </style>
 </body>
 </html>
