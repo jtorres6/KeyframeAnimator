@@ -21,7 +21,10 @@ function interpolate(){
     if( i > last_KFrame && i < next_KFrame){
       ListOfFrames[i].position[0] = Number(ListOfFrames[last_KFrame].position[0]) + Number(((i - last_KFrame)/(next_KFrame - last_KFrame))*(ListOfFrames[next_KFrame].position[0] - ListOfFrames[last_KFrame].position[0]));
       ListOfFrames[i].position[1] = Number(ListOfFrames[last_KFrame].position[1]) + Number(((i - last_KFrame)/(next_KFrame - last_KFrame))*(ListOfFrames[next_KFrame].position[1] - ListOfFrames[last_KFrame].position[1]));
-    } 
+      ListOfFrames[i].scale[0] = Number(ListOfFrames[last_KFrame].scale[0]) + Number(((i - last_KFrame)/(next_KFrame - last_KFrame))*(ListOfFrames[next_KFrame].scale[0] - ListOfFrames[last_KFrame].scale[0]));
+      ListOfFrames[i].scale[1] = Number(ListOfFrames[last_KFrame].scale[1]) + Number(((i - last_KFrame)/(next_KFrame - last_KFrame))*(ListOfFrames[next_KFrame].scale[1] - ListOfFrames[last_KFrame].scale[1]));
+      ListOfFrames[i].rotation = Number(ListOfFrames[last_KFrame].rotation) + Number(((i - last_KFrame)/(next_KFrame - last_KFrame))*(ListOfFrames[next_KFrame].rotation - ListOfFrames[last_KFrame].rotation));
+    }
     if(i == next_KFrame){
       var slider  = document.getElementById("myRange");
       var output = document.getElementById("demo");
@@ -41,6 +44,9 @@ function interpolate(){
     if(i > next_KFrame){
       ListOfFrames[i].position[0] = ListOfFrames[next_KFrame].position[0];
       ListOfFrames[i].position[1] = ListOfFrames[next_KFrame].position[1];
+      ListOfFrames[i].scale[0] = ListOfFrames[next_KFrame].scale[0];
+      ListOfFrames[i].scale[1] = ListOfFrames[next_KFrame].scale[1];
+      ListOfFrames[i].rotation = ListOfFrames[next_KFrame].rotation;
     }
   }
 
@@ -65,13 +71,14 @@ function setSquare(){
 
 //Star/stop reproducing the animation
 function play(){
-  interpolate();
+
   if(initialized == false){
     for(i = 0; i < ListOfFrames.length; i++){
-      ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
+      ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[1,1],0, false);
     }
     initialized = true;
   }
+    interpolate();
   if(!playing){
     document.getElementById("button_timeline").innerHTML ="❚❚";
     interval = setInterval(loop, animVelocity);
@@ -84,30 +91,15 @@ function play(){
   }
 }
 
-
-//Stop reproducing the animation
-function stop(){
-  playing = false;
-  clearInterval(interval);
-  document.getElementById("button_timeline").innerHTML ="►";
-  var slider  = document.getElementById("myRange");
-  var output = document.getElementById("demo");
-  slider.value = parseInt(slider.value);
-  output.innerHTML = slider.value;
-
-}
-
-
 //Loop that reproduces the animation frame per frame
 function loop() {
       var slider  = document.getElementById("myRange");
       var output = document.getElementById("demo");
       slider.value = parseInt(slider.value) + 1;
-      var found = false;
       showKeyframe(parseInt(slider.value));
       output.innerHTML = slider.value;
-      if(slider.value == 100){
-        clearInterval(interval)
+      if(slider.value ==99){
+        play();
       }
 }
 
@@ -126,12 +118,13 @@ function loop() {
   //Select one of the objects of the list
   function selectKeyframe(){
     var x = document.getElementById("keyframes");
-    if(x.selectedIndex > -1){ 
+    if(x.selectedIndex > -1){
       last_selected = x.selectedIndex;
       updateKeyframe(x.selectedIndex);
-      setTranslate(ListOfKeyframes[x.selectedIndex].position[0], ListOfKeyframes[x.selectedIndex].position[1], dragItem);
+      setEscaleRot(dragItem,ListOfKeyframes[x.selectedIndex].scale[0],ListOfKeyframes[x.selectedIndex].scale[1],ListOfKeyframes[x.selectedIndex].rotation);
+      setTranslate(dragItem, ListOfKeyframes[x.selectedIndex].position[0], ListOfKeyframes[x.selectedIndex].position[1]);
       showKeyframe(ListOfKeyframes[x.selectedIndex].time);
-      
+
       }
   }
 
@@ -142,9 +135,8 @@ function loop() {
     document.getElementById("positionY").value = ListOfKeyframes[x].position[1];
     document.getElementById("scaleX").value = ListOfKeyframes[x].scale[0];
     document.getElementById("scaleY").value = ListOfKeyframes[x].scale[1];
-    document.getElementById("rotationX").value = ListOfKeyframes[x].rotation[0];
-    document.getElementById("rotationY").value = ListOfKeyframes[x].rotation[1];
-    
+    document.getElementById("rotation").value = ListOfKeyframes[x].rotation;
+
     document.getElementById("myRange").value = ListOfKeyframes[x].time;
     document.getElementById("demo").innerHTML = ListOfKeyframes[x].time;
   }
@@ -156,12 +148,13 @@ function loop() {
     document.getElementById("positionY").value = ListOfFrames[x].position[1];
     document.getElementById("scaleX").value = ListOfFrames[x].scale[0];
     document.getElementById("scaleY").value = ListOfFrames[x].scale[1];
-    document.getElementById("rotationX").value = ListOfFrames[x].rotation[0];
-    document.getElementById("rotationY").value = ListOfFrames[x].rotation[1];
-    
+    document.getElementById("rotation").value = ListOfFrames[x].rotation;
+
     document.getElementById("myRange").value = ListOfFrames[x].time;
-    setTranslate(ListOfFrames[x].position[0], ListOfFrames[x].position[1], dragItem);
-      
+    setEscaleRot(dragItem, ListOfFrames[x].scale[0], ListOfFrames[x].scale[1], ListOfFrames[x].rotation)
+    setTranslate(dragItem, ListOfFrames[x].position[0], ListOfFrames[x].position[1]);
+
+
   }
 
   function setName(){
@@ -198,10 +191,8 @@ function loop() {
   function setRotation(){
     var x = document.getElementById("keyframes");
     if(x.selectedIndex > -1){
-      ListOfKeyframes[x.selectedIndex].rotation[0] = document.getElementById("rotationX").value;
-      ListOfKeyframes[x.selectedIndex].rotation[1] = document.getElementById("rotationY").value;
-      ListOfFrames[ListOfKeyframes[x.selectedIndex].time].rotation[0] = document.getElementById("rotationX").value;
-      ListOfFrames[ListOfKeyframes[x.selectedIndex].time].rotation[1] = document.getElementById("rotationY").value;
+      ListOfKeyframes[x.selectedIndex].rotation = document.getElementById("rotation").value;
+      ListOfFrames[ListOfKeyframes[x.selectedIndex].time].rotation = document.getElementById("rotation").value;
     }
     showKeyframe(ListOfKeyframes[x.selectedIndex].time)
   }
@@ -214,21 +205,21 @@ function loop() {
     output.innerHTML = slider.value;
     if(initialized == false){
       for(i = 0; i < ListOfFrames.length; i++){
-        ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
+        ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[1,1],0, false);
       }
       initialized = true;
     }
     if(ListOfFrames[parseInt(slider.value)].KFrameFlag == false){
 
-      ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true));
-      ListOfFrames[parseInt(slider.value)] = new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true);
-      
+      ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[1,1],0, true));
+      ListOfFrames[parseInt(slider.value)] = new KeyFrame(slider.value,"kframe"+index,[0,0],[1,1],0, true);
+
       var x = document.getElementById("keyframes");
       var option = document.createElement("option");
       option.text = ListOfFrames[slider.value].name;
       x.add(option);
       index+=1;
-  
+
       interpolate();
     }
   }
@@ -245,12 +236,12 @@ function loop() {
       ListOfKeyframes[i].position[1] = ListOfKeyframes[i+1].position[1];
       ListOfKeyframes[i].scale[0] = ListOfKeyframes[i+1].scale[0];
       ListOfKeyframes[i].scale[1] = ListOfKeyframes[i+1].scale[1];
-      ListOfKeyframes[i].rotation[0] = ListOfKeyframes[i+1].rotation[0];
-      ListOfKeyframes[i].rotation[1] = ListOfKeyframes[i+1].rotation[1];
+      ListOfKeyframes[i].rotation = ListOfKeyframes[i+1].rotation;
       ListOfKeyframes[i].name = ListOfKeyframes[i+1].name;
     }
     ListOfKeyframes.pop(n);
 }
+/*
 var dragItem = document.querySelector("#item");
 var container = document.querySelector("#container");
 
@@ -287,7 +278,7 @@ function dragStart(e) {
 function dragEnd(e) {
   initialX = currentX;
   initialY = currentY;
-  
+
   active = false;
 }
 
@@ -306,13 +297,19 @@ function drag(e) {
 
     xOffset = currentX;
     yOffset = currentY;
-    
-    setTranslate(currentX, currentY, dragItem);
+
+    setTranslate(dragItem, currentX, currentY);
 
   }
 }
 
-function setTranslate(xPos, yPos, el) {
+
+function setTranslate(el, xPos, yPos) {
   el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-  
 }
+
+  function setEscaleRot(el, xEs, yEs, rot) {
+    el.style.transform = "rotate(" + rot + "deg)";
+  //  el.style.transform = "scale(" + xEs + "," + yEs + ")";
+  }
+*/

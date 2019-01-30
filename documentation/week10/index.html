@@ -13,8 +13,8 @@
     <div id="left">
       <div id="container" >
         <div id="item">
-          <img id=imgsq src="../img/square.jpg" alt="I_really_really_really_like_this_image" style="display:none; vertical-align:middle; text-align:center">
-          <img id=imgtr src="../img/triangle.jpg" alt="I_really_really_really_like_this_image" style="display:block; vertical-align:middle; text-align:center">
+          <img id=imgsq src="http://www.barebooks.com/wp-content/uploads/2013/10/GM05.gif" alt="I_really_really_really_like_this_image" style="display:none; vertical-align:middle; text-align:center">
+          <img id=imgtr src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Regular_triangle.svg/1024px-Regular_triangle.svg.png" alt="I_really_really_really_like_this_image" style="display:block; vertical-align:middle; text-align:center">
         </div>
       </div>
       <div id="timeline" onchange="stop()">
@@ -62,7 +62,7 @@
       function dragEnd(e) {
         initialX = currentX;
         initialY = currentY;
-        
+
         var x = document.getElementById("keyframes");
         if(x.selectedIndex > -1){
           ListOfKeyframes[x.selectedIndex].position[0] = currentX;
@@ -90,13 +90,20 @@
           xOffset = currentX;
           yOffset = currentY;
 
-          setTranslate(currentX, currentY, dragItem);
+          setTranslate(dragItem, currentX, currentY);
+
         }
       }
 
-      function setTranslate(xPos, yPos, el) {
+      function setTranslate(el, xPos, yPos) {
         el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
       }
+      function setEscaleRot(el, xEs, yEs, rot) {
+       el.style.transform = "rotate3d(1, 1, 1, " + rot + "deg)";
+        el.style.moztransform = "scale(" + xEs + ", " + yEs + ")";
+
+      }
+
     </script>
 
 
@@ -131,6 +138,7 @@
   </div>
 
 </div>
+<div id=infobox>
 <p>Name</p>
 <input type="text" id="kfName" oninput="setName()" >
 <p>Position</p>
@@ -140,8 +148,8 @@
 <input type="text" id="scaleX" oninput="setScale()" >
 <input type="text" id="scaleY" oninput="setScale()" >
 <p>Rotation</p>
-<input type="text" id="rotationX" oninput="setRotation()" >
-<input type="text" id="rotationY" oninput="setRotation()" >
+<input type="text" id="rotation" oninput="setRotation()" >
+</div>
 <div id="copyright">
   <hr/>
   <p>© Copyright <a href="http://www.copyright.com">SpanishTeam</a> | <a href="http://www.sitio_inventado.com/privacy_policy.cfm">Privacy Policy</a></p>

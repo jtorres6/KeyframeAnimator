@@ -3,11 +3,9 @@
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
 	<title>Keyframe animator</title>
-	<link rel="stylesheet" href="./indexs.css">
 </head>
 <body>
-  <h1>Keyframe Animator: Week 10 progress update</h1>
-  <div id="contentinfo">
+  <h1>Keyframe Animator: Final work</h1>
     <section typeof="sa:AuthorsList">
       <h2>Authors</h2>
         <ul>
@@ -16,7 +14,7 @@
               <meta property="schema:givenName" content="Jose">
               <meta property="schema:additionalName" content="Manuel">
               <meta property="schema:familyName" content="Torres Morales">
-              <span property="schema:name"><a href="https://github.com/jtorres6">Josñe M. Torres Morales</a></span>
+              <span property="schema:name"><a href="https://github.com/jtorres6">Jose M. Torres Morales</a></span>
             </span>
           </li>
           <li typeof="sa:ContributorRole" property="schema:author">
@@ -29,30 +27,39 @@
         </ul>
       </section>
       <section id="description">
-        <h2>Class diagram</h2>
+        <div id="image">
           <figure class="figimg" typeof="sa:image">
-            <img id="diagrama" src="http://oi67.tinypic.com/2r2n1ia.jpg" alt="Class diagram">
+            <img id="diagrama" src="https://imgur.com/a/34NM3Hy" alt="Class diagram">
           </figure>
+        </div>
           <div id="desc_content">
           <p>
-            The class Animation has two fields for storing the list of original
-            keyframes and the interpolated keyframes.
-
-            The functions implemented are used for adding new keyframes,
-            select one keyframe from the list, remove the selected keyframe and
-            reproduce the animation.
+            This diagram represents the principal parts of our project and the main interactions
+            that can be processed. The buttons "square" and "triangle" modify the image displayed.
+            A drag event can take place over the image, and this process will modify the text displayed on
+            the imput text area. This will edit the values of the selected keyframe stored on the keyframes list.
+            It is also posible to introduce the data directly on the imput text area without a frag event.
+            the "add keyframe" and "delete keyframe" access directly to the keyframe list and modify it.
+            For starting the display process we have implemented a button that starts and stops the animation.
           </p>
           <p>
-            The class Keyframe has five fields implemented where the name, time,
-            position, rotation and scale are stored.
-            The functions implemented in this class are the constructor,
-            a displayer and an editor.
+
+            For using our animator, first we must choose a time space where place the keyframe.
+            In order to do it, we must move the time slider to the desired position. After touchstart
+            it's necessary to click the "add keyframe" button. Then a new keyframe appears on the list.
+            However, al the data is initialized to standard values, and it is probable that those
+            values aren't what you are looking for. There are two options for editing these values:
+            you can drag the element an drop it on the desired place or just modify the numbers on the
+            text area below the image. If you also want to edit the rotation and/or the scale it is mandatory
+            to change the values on the text area. Once your keyframe is edited, you can repeat the processe
+            as many times as you want. When you want to see the result, just click the start/stop button on the
+            slider.
           </p>
+          <div id="linkbottom">
+          <p><h2><a href="https://keyframeanimator.tumblr.com"> LINK TO THE CURRENT WEBPAGE </a><h2></p>
+          </div>
         </div>
       </section>
-        <div id="linkbottom">
-        <p><h2><a href="https://keyframeanimator.tumblr.com"> LINK TO THE CURRENT WEBPAGE </a><h2></p>
-        </div>
 
         <style>
         /* CSS reset */
@@ -64,14 +71,20 @@
           vertical-align: baseline;
         }
         body {
-          background-color: #161616;
+          background-color: Cornsilk;
           font-family: "Fira Sans", sans-serif;
-          color: white;
 
         }
 
-        img{
-            width: 50%;
+        #image{
+            height: 80%;
+            margin-left: 20px;
+            background-color: Cornsilk;
+          }
+
+          #description{
+            display: flex;
+            margin: 5px;
           }
 
         .figimg{
@@ -91,18 +104,19 @@
           margin: 10px;
         }
 
-        #desc_content{
-          display: flex;
+        #desc_content {
+          display: inline-block;
+          width: 80%;
+
         }
         #desc_content p{
-          margin-left: 55px;
-          margin-right: 55px;
-          margin-bottom: 20px;
           margin-top: 20px;
-          width: 40%;
+
         }
+
         #linkbottom{
           margin: 20px;
+          text-align: center;
         }
 
         h1{
@@ -111,6 +125,10 @@
 
         li{
           margin: 10px;
+          list-style-type: none;
+        }
+        h2{
+          margin-left: 5%;
         }
         </style>
 </body>
