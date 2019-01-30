@@ -1,0 +1,69 @@
+function interpolate(){
+  
+  var slider  = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = "AAAAAAAAAAAAAAAAAA";
+  var next_KFrame = 0;
+  var last_KFrame = 0;
+  while(!ListOfFrames[next_KFrame].KFrameFlag && next_KFrame < ListOfFrames.length ){
+    next_KFrame++;
+  }
+
+  if(next_KFrame < ListOfFrames.length){
+    for(i=1; i<ListOfFrames.length;i++){
+      
+    var slider  = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = next_KFrame;
+      if(ListOfFrames[i].KFrameFlag==true){
+        last_KFrame = next_KFrame;
+        while(!ListOfFrames[next_KFrame].KFrameFlag && next_KFrame < ListOfFrames.length ){
+          next_KFrame++;
+        }
+        if(next_KFrame >= ListOfFrames.length)
+          next_KFrame = i;
+      }
+      else{
+        if(i > next_KFrame){
+          ListOfFrames[i].position[0] = ListOfFrames[next_KFrame].position[0];
+          ListOfFrames[i].position[1] = ListOfFrames[next_KFrame].position[1];
+          ListOfFrames[i].scale[0] = ListOfFrames[next_KFrame].scale[0];
+          ListOfFrames[i].scale[1] = ListOfFrames[next_KFrame].scale[1];
+          ListOfFrames[i].rotation[0] = ListOfFrames[next_KFrame].rotation[0];
+          ListOfFrames[i].rotation[1] = ListOfFrames[next_KFrame].rotation[1];
+        }
+        else{ // y = y1 + ((x - x1)/(x2 - x1))*(y2 - y1)
+          ListOfFrames[i].name = ListOfFrames[i].name +" "+(ListOfFrames[last_KFrame].position[0] + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+          /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+          *(ListOfFrames[next_KFrame].position[0] - ListOfFrames[last_KFrame].position[0])) + " " + ListOfFrames[next_KFrame].position[0]+" interpolated "+ListOfFrames[last_KFrame].name + " " +ListOfFrames[next_KFrame].name;
+          ListOfFrames[i].position[0] = ListOfFrames[last_KFrame].position[0] + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].position[0] - ListOfFrames[last_KFrame].position[0]); 
+
+          ListOfFrames[i].position[0] = ListOfFrames[last_KFrame].position[1] + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].position[1] - ListOfFrames[last_KFrame].position[1]); 
+
+          ListOfFrames[i].scale[0] = ListOfFrames[last_KFrame].scale[0]       + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].scale[0] - ListOfFrames[last_KFrame].scale[0]); 
+
+          ListOfFrames[i].scale[1] = ListOfFrames[last_KFrame].scale[1]       + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].scale[1] - ListOfFrames[last_KFrame].scale[1]); 
+
+          ListOfFrames[i].rotation[0] = ListOfFrames[last_KFrame].rotation[0] + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].rotation[0] - ListOfFrames[last_KFrame].rotation[0]); 
+
+          ListOfFrames[i].rotation[1] = ListOfFrames[last_KFrame].rotation[1] + ((ListOfFrames[i].time - ListOfFrames[last_KFrame].time)
+                                                                                /(ListOfFrames[next_KFrame].time -ListOfFrames[last_KFrame].time))
+                                                                                *(ListOfFrames[next_KFrame].rotation[1] - ListOfFrames[last_KFrame].rotation[1]); 
+        }
+
+      }
+
+    }
+  }
+
+}

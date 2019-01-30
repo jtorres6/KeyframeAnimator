@@ -67,6 +67,8 @@
         if(x.selectedIndex > -1){
           ListOfKeyframes[x.selectedIndex].position[0] = currentX;
           ListOfKeyframes[x.selectedIndex].position[1] = currentY;
+          ListOfFrames[ ListOfKeyframes[x.selectedIndex].time].position[0] = currentX;
+          ListOfFrames[ ListOfKeyframes[x.selectedIndex].time].position[1] = currentY;
           updateKeyframe(x.selectedIndex);
         }
         active = false;
