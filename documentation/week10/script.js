@@ -212,14 +212,14 @@ function loop() {
     var output = document.getElementById("demo");
     slider.value = parseInt(slider.value);
     output.innerHTML = slider.value;
- 
-    if(ListOfFrames[parseInt(slider.value)].KFrameFlag == false){
-      if(initialized == false){
-        for(i = 0; i < ListOfFrames.length; i++){
-          ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
-        }
-        initialized = true;
+    if(initialized == false){
+      for(i = 0; i < ListOfFrames.length; i++){
+        ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
       }
+      initialized = true;
+    }
+    if(ListOfFrames[parseInt(slider.value)].KFrameFlag == false){
+
       ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true));
       ListOfFrames[parseInt(slider.value)] = new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true);
       
