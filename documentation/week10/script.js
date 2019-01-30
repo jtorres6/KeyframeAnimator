@@ -9,6 +9,7 @@ var index = 0;
 
 var last_selected;
 
+//Creates the interpolation between keyframes
 function interpolate(){
   var next_KFrame = 0;
   var last_KFrame = 0;
@@ -47,22 +48,25 @@ function interpolate(){
 
 }
 
+
+//Changue the image to a triangle
 function setTriangle(){
     document.getElementById("imgtr").style.display = 'block';
     document.getElementById("imgsq").style.display = 'none';
 }
 
+
+//Changue the image to a square
 function setSquare(){
     document.getElementById("imgtr").style.display = 'none';
     document.getElementById("imgsq").style.display = 'block';
 }
 
+
+//Star/stop reproducing the animation
 function play(){
   interpolate();
   if(initialized == false){
-    var slider  = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = "AAAAAAAAAAAAAAAAAA";
     for(i = 0; i < ListOfFrames.length; i++){
       ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
     }
@@ -80,6 +84,8 @@ function play(){
   }
 }
 
+
+//Stop reproducing the animation
 function stop(){
   playing = false;
   clearInterval(interval);
@@ -91,18 +97,21 @@ function stop(){
 
 }
 
+
+//Loop that reproduces the animation frame per frame
 function loop() {
       var slider  = document.getElementById("myRange");
       var output = document.getElementById("demo");
       slider.value = parseInt(slider.value) + 1;
       var found = false;
       showKeyframe(parseInt(slider.value));
-      //output.innerHTML = slider.value;
+      output.innerHTML = slider.value;
       if(slider.value == 100){
         clearInterval(interval)
       }
 }
 
+//Frame object
   function KeyFrame(time, name, position, scale, rotation, KFrameFlag){
     this.time = time;
     this.name = name;
@@ -113,6 +122,8 @@ function loop() {
 
   }
 
+
+  //Select one of the objects of the list
   function selectKeyframe(){
     var x = document.getElementById("keyframes");
     if(x.selectedIndex > -1){ 
@@ -124,6 +135,7 @@ function loop() {
       }
   }
 
+  //Load the new info of the kframe in the editor
   function updateKeyframe(x){
     document.getElementById("kfName").value = ListOfKeyframes[x].name;
     document.getElementById("positionX").value = ListOfKeyframes[x].position[0];
@@ -137,7 +149,7 @@ function loop() {
     document.getElementById("demo").innerHTML = ListOfKeyframes[x].time;
   }
 
-  
+  //Muestra el kframe en el editor
   function showKeyframe(x){
     document.getElementById("kfName").value = ListOfFrames[x].name;
     document.getElementById("positionX").value = ListOfFrames[x].position[0];
@@ -194,30 +206,34 @@ function loop() {
     showKeyframe(ListOfKeyframes[x.selectedIndex].time)
   }
 
+  //Add a new keyframe to the Keyframe and Frame lists
   function addKeyframe(){
- 
-    if(initialized == false){
-      for(i = 0; i < ListOfFrames.length; i++){
-        ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
-      }
-      initialized = true;
-    }
     var slider  = document.getElementById("myRange");
     var output = document.getElementById("demo");
     slider.value = parseInt(slider.value);
     output.innerHTML = slider.value;
-    ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true));
-    ListOfFrames[parseInt(slider.value)] = new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true);
-    
-    var x = document.getElementById("keyframes");
-    var option = document.createElement("option");
-    option.text = ListOfFrames[slider.value].name;
-    x.add(option);
-    index+=1;
-
-    interpolate()
+ 
+    if(ListOfFrames[parseInt(slider.value)].KFrameFlag == false){
+      if(initialized == false){
+        for(i = 0; i < ListOfFrames.length; i++){
+          ListOfFrames[i] = new KeyFrame(i,"frame"+i,[0,0],[0,0],[0,0], false);
+        }
+        initialized = true;
+      }
+      ListOfKeyframes.push(new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true));
+      ListOfFrames[parseInt(slider.value)] = new KeyFrame(slider.value,"kframe"+index,[0,0],[0,0],[0,0], true);
+      
+      var x = document.getElementById("keyframes");
+      var option = document.createElement("option");
+      option.text = ListOfFrames[slider.value].name;
+      x.add(option);
+      index+=1;
+  
+      interpolate();
+    }
   }
 
+  //Remove the keyframe from the both new lists and re-interpolates
   function removeKeyframe(){
     var x = document.getElementById("keyframes");
     var n = x.selectedIndex;
